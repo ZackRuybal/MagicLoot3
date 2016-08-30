@@ -27,8 +27,10 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 public class ItemManager {
 	
@@ -81,7 +83,7 @@ public class ItemManager {
 				item.setDurability(CSCoreLib.randomizer().nextInt(100) > 50 ? (short) 8194: 16386);
 				String name = COLOR.get(CSCoreLib.randomizer().nextInt(COLOR.size())) + PREFIX.get(CSCoreLib.randomizer().nextInt(PREFIX.size())) + " " + SUFFIX.get(CSCoreLib.randomizer().nextInt(SUFFIX.size()));
 				PotionMeta meta = (PotionMeta) item.getItemMeta();
-				meta.setMainEffect(PotionEffectType.HEAL);
+				meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL));
 				meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
 				for (int i = 0; i < CSCoreLib.randomizer().nextInt(max_potions - min_potions) + min_potions; i++) {
 					PotionEffectType e = POTIONEFFECTS.get(CSCoreLib.randomizer().nextInt(POTIONEFFECTS.size()));
@@ -222,21 +224,21 @@ public class ItemManager {
 			entity.getEquipment().setChestplateDropChance(0F);
 			entity.getEquipment().setLeggingsDropChance(0F);
 			entity.getEquipment().setBootsDropChance(0F);
-			entity.getEquipment().setItemInHandDropChance(0.7F);
+			entity.getEquipment().setItemInMainHandDropChance(0.7F);
 			
 			try {
 				entity.getEquipment().setHelmet(new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2JjYmIzZTRhMzhhYzJhMDVmNjk1NWNkMmM5ODk1YWQ5ZjI4NGM2ZTgyZTc1NWM5NGM1NDljNWJkYzg1MyJ9fX0="), "§4Santa's Head", "", "§rDid you just kill Santa?"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			entity.getEquipment().setItemInHand(applyTier(createItem(LootType.TOOL), LootTier.LEGENDARY));
+			entity.getEquipment().setItemInMainHand(applyTier(createItem(LootType.TOOL), LootTier.LEGENDARY));
 		}
 		else {
 			entity.getEquipment().setHelmetDropChance(0.7F);
 			entity.getEquipment().setChestplateDropChance(0.7F);
 			entity.getEquipment().setLeggingsDropChance(0.7F);
 			entity.getEquipment().setBootsDropChance(0.7F);
-			entity.getEquipment().setItemInHandDropChance(0.7F);
+			entity.getEquipment().setItemInMainHandDropChance(0.7F);
 			
 			for (int i = 0; i < CSCoreLib.randomizer().nextInt(3); i++) {
 				ItemStack item = createItem(LootType.TOOL);
@@ -244,7 +246,7 @@ public class ItemManager {
 				else if (item.getType().toString().endsWith("_CHESTPLATE")) entity.getEquipment().setChestplate(item);
 				else if (item.getType().toString().endsWith("_LEGGINGS")) entity.getEquipment().setLeggings(item);
 				else if (item.getType().toString().endsWith("_BOOTS")) entity.getEquipment().setBoots(item);
-				else entity.getEquipment().setItemInHand(item);
+				else entity.getEquipment().setItemInMainHand(item);
 			}
 		}
 	}

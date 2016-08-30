@@ -177,8 +177,8 @@ public class MLListener implements Listener {
 	}
 	
 	private ItemStack getItemInHand(LivingEntity n) {
-		if (n instanceof Player) return ((Player) n).getItemInHand();
-		else return n.getEquipment().getItemInHand();
+		if (n instanceof Player) return ((Player) n).getInventory().getItemInMainHand();
+		else return n.getEquipment().getItemInMainHand();
 	}
 	
 	private ItemStack[] getArmorContents(LivingEntity n) {
