@@ -110,7 +110,7 @@ public class MagicLoot {
 			loadRuin("GasStation");
 			loadRuin("House");
 			loadRuin("Outpost");
-			//loadRuin("Tent");
+			loadRuin("Tent");
 			loadRuin("Shop");
 			loadRuin("Farm");
 			loadRuin("Railstation");
