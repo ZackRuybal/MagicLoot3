@@ -129,24 +129,29 @@ public class MagicLoot {
 	}
 
 	private static void loadBuilding(String name) {
-		InputStream stream = MagicLoot.class.getResourceAsStream("buildings/" + name + ".schematic");
-	    OutputStream out = null;
-	    int read;
-	    byte[] buffer = new byte[4096];
-	    try {
-	        out = new FileOutputStream(new File("plugins/MagicLoot/buildings/" + name + ".schematic"));
-	        while ((read = stream.read(buffer)) > 0) {
-	            out.write(buffer, 0, read);
-	        }
-	    } catch (IOException e1) {
-	        e1.printStackTrace();
-	    } finally {
-	        try {
-				stream.close();
-				out.close();
-			} catch (IOException e) {
+		String dataname = "buildings/" + name + ".schematic";
+		try{
+			InputStream stream = MagicLoot.class.getResourceAsStream(dataname);
+			OutputStream out = null;
+			int read;
+			byte[] buffer = new byte[4096];
+			try {
+				out = new FileOutputStream(new File("plugins/MagicLoot/"+dataname));
+				while ((read = stream.read(buffer)) > 0) {
+					out.write(buffer, 0, read);
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} finally {
+				try {
+					stream.close();
+					out.close();
+				} catch (IOException e) {
+				}
 			}
-	    }
+		} catch(NullPointerException e){
+            throw new NullPointerException("Jar integrity compromised, did not find \""+name+"\" in the jar.");
+		}
 	}
 
 	private static void loadNames() {
