@@ -130,8 +130,8 @@ public class MagicLoot {
 
 	private static void loadBuilding(String name) {
 		String dataname = "buildings/" + name + ".schematic";
-		try{
-			InputStream stream = MagicLoot.class.getResourceAsStream(dataname);
+		InputStream stream = MagicLoot.class.getResourceAsStream(dataname);
+		if(stream != null){
 			OutputStream out = null;
 			int read;
 			byte[] buffer = new byte[4096];
@@ -149,8 +149,8 @@ public class MagicLoot {
 				} catch (IOException e) {
 				}
 			}
-		} catch(NullPointerException e){
-            throw new NullPointerException("Jar integrity compromised, did not find \""+name+"\" in the jar.");
+		}else{
+			throw new NullPointerException("Jar integrity compromised, did not find \""+dataname+"\" in the jar.");
 		}
 	}
 
@@ -301,24 +301,29 @@ public class MagicLoot {
 	}
 	
 	public static void loadRuin(String name) {
-		InputStream stream = MagicLoot.class.getResourceAsStream("schematics/" + name + ".schematic");
-	    OutputStream out = null;
-	    int read;
-	    byte[] buffer = new byte[4096];
-	    try {
-	        out = new FileOutputStream(new File("plugins/MagicLoot/schematics/" + name + ".schematic"));
-	        while ((read = stream.read(buffer)) > 0) {
-	            out.write(buffer, 0, read);
-	        }
-	    } catch (IOException e1) {
-	        e1.printStackTrace();
-	    } finally {
-	        try {
-				stream.close();
-				out.close();
-			} catch (IOException e) {
+		String dataname = "schematics/" + name + ".schematic";
+		InputStream stream = MagicLoot.class.getResourceAsStream(dataname);
+		if(stream != null){
+			OutputStream out = null;
+			int read;
+			byte[] buffer = new byte[4096];
+			try {
+				out = new FileOutputStream(new File("plugins/MagicLoot/"+dataname));
+				while ((read = stream.read(buffer)) > 0) {
+					out.write(buffer, 0, read);
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} finally {
+				try {
+					stream.close();
+					out.close();
+				} catch (IOException e) {
+				}
 			}
-	    }
+		}else{
+			throw new NullPointerException("Jar integrity compromised, did not find \""+dataname+"\" in the jar.");
+		}
 	}
 
 	public static int getMaxLevel(Enchantment e) {
