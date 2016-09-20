@@ -39,8 +39,8 @@ public class MLListener implements Listener {
 			DamageCause.THORNS
 	);
 	
-	public MLListener(main plugin) {
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	public MLListener() {
+		main.instance.getServer().getPluginManager().registerEvents(this, main.instance);
 	}
 	
 	@EventHandler
@@ -74,7 +74,7 @@ public class MLListener implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
-		if (e.getRightClicked() instanceof Villager && ((LivingEntity) e.getRightClicked()).getCustomName() != null && ((LivingEntity) e.getRightClicked()).getCustomName().equals("§5§lLost Librarian")) {
+		if (e.getRightClicked() instanceof Villager && ((LivingEntity) e.getRightClicked()).getCustomName() != null && ((LivingEntity) e.getRightClicked()).getCustomName().equals(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD+"Lost Librarian")) {
 			e.setCancelled(true);
 			try {
 				LostLibrarian.openMenu(e.getPlayer());
@@ -91,7 +91,7 @@ public class MLListener implements Listener {
 		if (!causes.contains(e.getCause())) return;
 		if (!e.getEntity().getWorld().getPVP()) return;
 		
-		if (e.getEntity() instanceof Villager && ((LivingEntity) e.getEntity()).getCustomName() != null && ((LivingEntity) e.getEntity()).getCustomName().equals("§5§lLost Librarian")) {
+		if (e.getEntity() instanceof Villager && ((LivingEntity) e.getEntity()).getCustomName() != null && ((LivingEntity) e.getEntity()).getCustomName().equals(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD+"Lost Librarian")) {
 			e.setCancelled(true);
 		}	
 		else {

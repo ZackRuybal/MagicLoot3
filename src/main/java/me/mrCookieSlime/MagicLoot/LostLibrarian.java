@@ -6,6 +6,7 @@ import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.CSCoreLibPlugin.general.World.CustomSkull;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -20,9 +21,9 @@ public class LostLibrarian {
 		LootTier tier = LootTier.get(item);
 		if (tier.equals(LootTier.UNKNOWN)) {
 			p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
-			ChestMenu menu = new ChestMenu("§5§lLost Librarian");
+			ChestMenu menu = new ChestMenu(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD+"Lost Librarian");
 			
-			menu.addItem(4, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzk3OTU1NDYyZTRlNTc2NjY0NDk5YWM0YTFjNTcyZjYxNDNmMTlhZDJkNjE5NDc3NjE5OGY4ZDEzNmZkYjIifX19"), "&7[&rRandom&7]", "", "§7Cost: §b" + main.cfg.getInt("costs.RANDOM") + " XP Level"));
+			menu.addItem(4, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzk3OTU1NDYyZTRlNTc2NjY0NDk5YWM0YTFjNTcyZjYxNDNmMTlhZDJkNjE5NDc3NjE5OGY4ZDEzNmZkYjIifX19"), "&7[&rRandom&7]", "", ChatColor.GRAY+"Cost: "+ChatColor.AQUA + main.cfg.getInt("costs.RANDOM") + " XP Level"));
 			menu.addMenuClickHandler(4, new MenuClickHandler() {
 				
 				@Override
@@ -32,7 +33,7 @@ public class LostLibrarian {
 				}
 			});
 			
-			menu.addItem(11, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.COMMON.getPrimaryColor()), LootTier.COMMON.getTag(), "", "§7Cost: §b" + main.cfg.getInt("costs." + LootTier.COMMON.toString()) + " XP Level"));
+			menu.addItem(11, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.COMMON.getPrimaryColor()), LootTier.COMMON.getTag(), "", ChatColor.GRAY+"Cost: "+ChatColor.AQUA + main.cfg.getInt("costs." + LootTier.COMMON.toString()) + " XP Level"));
 			menu.addMenuClickHandler(11, new MenuClickHandler() {
 				
 				@Override
@@ -42,7 +43,7 @@ public class LostLibrarian {
 				}
 			});
 			
-			menu.addItem(12, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.UNCOMMON.getPrimaryColor()), LootTier.UNCOMMON.getTag(), "", "§7Cost: §b" + main.cfg.getInt("costs." + LootTier.UNCOMMON.toString()) + " XP Level"));
+			menu.addItem(12, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.UNCOMMON.getPrimaryColor()), LootTier.UNCOMMON.getTag(), "", ChatColor.GRAY+"Cost: "+ChatColor.AQUA + main.cfg.getInt("costs." + LootTier.UNCOMMON.toString()) + " XP Level"));
 			menu.addMenuClickHandler(12, new MenuClickHandler() {
 				
 				@Override
@@ -52,7 +53,7 @@ public class LostLibrarian {
 				}
 			});
 			
-			menu.addItem(13, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.RARE.getPrimaryColor()), LootTier.RARE.getTag(), "", "§7Cost: §b" + main.cfg.getInt("costs." + LootTier.RARE.toString()) + " XP Level"));
+			menu.addItem(13, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.RARE.getPrimaryColor()), LootTier.RARE.getTag(), "", ChatColor.GRAY+"Cost: "+ChatColor.AQUA + main.cfg.getInt("costs." + LootTier.RARE.toString()) + " XP Level"));
 			menu.addMenuClickHandler(13, new MenuClickHandler() {
 				
 				@Override
@@ -62,7 +63,7 @@ public class LostLibrarian {
 				}
 			});
 			
-			menu.addItem(14, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.EPIC.getPrimaryColor()), LootTier.EPIC.getTag(), "", "§7Cost: §b" + main.cfg.getInt("costs." + LootTier.EPIC.toString()) + " XP Level"));
+			menu.addItem(14, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.EPIC.getPrimaryColor()), LootTier.EPIC.getTag(), "", ChatColor.GRAY+"Cost: "+ChatColor.AQUA + main.cfg.getInt("costs." + LootTier.EPIC.toString()) + " XP Level"));
 			menu.addMenuClickHandler(14, new MenuClickHandler() {
 				
 				@Override
@@ -72,7 +73,7 @@ public class LostLibrarian {
 				}
 			});
 			
-			menu.addItem(15, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.LEGENDARY.getPrimaryColor()), LootTier.LEGENDARY.getTag(), "", "§7Cost: §b" + main.cfg.getInt("costs." + LootTier.LEGENDARY.toString()) + " XP Level"));
+			menu.addItem(15, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) LootTier.LEGENDARY.getPrimaryColor()), LootTier.LEGENDARY.getTag(), "", ChatColor.GRAY+"Cost: "+ChatColor.AQUA + main.cfg.getInt("costs." + LootTier.LEGENDARY.toString()) + " XP Level"));
 			menu.addMenuClickHandler(15, new MenuClickHandler() {
 				
 				@Override
@@ -95,7 +96,7 @@ public class LostLibrarian {
 			
 			menu.build().open(p);
 		}
-		else p.sendMessage("§5§lLost Librarian §8> §7Sorry, but I cannot seem to be able to examine this Item");
+		else p.sendMessage(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD+"Lost Librarian "+ChatColor.DARK_GRAY+"> "+ChatColor.GRAY+"Sorry, but I cannot seem to be able to examine this Item");
 	}
 
 	@SuppressWarnings("deprecation")
@@ -107,9 +108,9 @@ public class LostLibrarian {
 			p.setItemInHand(ItemManager.applyTier(item, tier));
 			p.updateInventory();
 			p.setLevel(p.getLevel() - cost);
-			p.sendMessage("§5§lLost Librarian §8> §7There you go! Thanks for visiting me.");
+			p.sendMessage(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD+"Lost Librarian "+ChatColor.DARK_GRAY+"> "+ChatColor.GRAY+"There you go! Thanks for visiting me.");
 		}
-		else p.sendMessage("§5§lLost Librarian §8> §7Sorry, but it seems like you have insufficient Experience Levels.");
+		else p.sendMessage(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD+"Lost Librarian "+ChatColor.DARK_GRAY+"> "+ChatColor.GRAY+"Sorry, but it seems like you have insufficient Experience Levels.");
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.Random;
 
 import me.mrCookieSlime.CSCoreLibPlugin.CSCoreLib;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -156,7 +157,7 @@ public class Schematic
                     		v.setProfession(Profession.LIBRARIAN);
                     		v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 999999999, 255));
                     		v.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999999, -255));
-                    		v.setCustomName("§5§lLost Librarian");
+                    		v.setCustomName(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD+"Lost Librarian");
                     		v.setCustomNameVisible(true);
                     		v.setAdult();
                     		v.setCustomNameVisible(true);

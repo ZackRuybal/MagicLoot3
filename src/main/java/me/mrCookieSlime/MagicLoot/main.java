@@ -21,6 +21,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.Slimefun;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,6 +37,7 @@ public class main extends JavaPlugin {
 	public static Config config_effects;
 	public static Config cfg;
 	public static Config tiers;
+	public static main instance;
 	
 	public static List<RuinHandler> handlers = new ArrayList<RuinHandler>();
 	
@@ -48,15 +50,16 @@ public class main extends JavaPlugin {
 			utils.setupConfig();
 			utils.setupMetrics();
 			utils.setupUpdater(74010, getFile());
+			String path = getDataFolder().getPath();
+			config_items = new Config(new File(path+"/Items.yml"));
+			config_names = new Config(new File(path+"/Names.yml"));
+			config_ench = new Config(new File(path+"/Enchantments.yml"));
+			config_potions = new Config(new File(path+"/Potions.yml"));
+			config_effects = new Config(new File(path+"/Effects.yml"));
+			cfg = new Config(new File(path+"/config.yml"));
+			tiers = new Config(new File(path+"/loot_tiers.yml"));
 			
-			config_items = new Config(new File("plugins/MagicLoot/Items.yml"));
-			config_names = new Config(new File("plugins/MagicLoot/Names.yml"));
-			config_ench = new Config(new File("plugins/MagicLoot/Enchantments.yml"));
-			config_potions = new Config(new File("plugins/MagicLoot/Potions.yml"));
-			config_effects = new Config(new File("plugins/MagicLoot/Effects.yml"));
-			cfg = new Config(new File("plugins/MagicLoot/config.yml"));
-			tiers = new Config(new File("plugins/MagicLoot/loot_tiers.yml"));
-			
+			instance = this;
 			MagicLoot.setupConfigs();
 			
 			try {
@@ -68,12 +71,12 @@ public class main extends JavaPlugin {
 			ItemManager.emeraldenchants = Bukkit.getPluginManager().isPluginEnabled("EmeraldEnchants");
 			
 			if (Bukkit.getPluginManager().isPluginEnabled("Slimefun")) {
-				Category category = new Category(new MenuItem(Material.BOOKSHELF, "§5MagicLoot", 0, "open"));
-				new SlimefunItem(category, new CustomItem(new MaterialData(Material.BOOKSHELF), "§dLost Bookshelf", "", "§rScrambled Parts of an", "§rancient Library..."), "LOST_BOOKSHELF", RecipeType.ENHANCED_CRAFTING_TABLE,
-				new ItemStack[] {new ItemStack(Material.BOOKSHELF), null, new ItemStack(Material.BOOKSHELF), SlimefunItems.MAGIC_LUMP_3, SlimefunItems.MAGICAL_BOOK_COVER, SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.BOOKSHELF), null, new ItemStack(Material.BOOKSHELF)}, new CustomItem(new CustomItem(new MaterialData(Material.BOOKSHELF), "§dLost Bookshelf", "", "§rScrambled Parts of an", "§rancient Library..."), 2))
+				Category category = new Category(new MenuItem(Material.BOOKSHELF, ChatColor.DARK_PURPLE+"MagicLoot", 0, "open"));
+				new SlimefunItem(category, new CustomItem(new MaterialData(Material.BOOKSHELF), ChatColor.LIGHT_PURPLE+"Lost Bookshelf", "", ChatColor.RESET+"Scrambled Parts of an", ChatColor.RESET+"ancient Library..."), "LOST_BOOKSHELF", RecipeType.ENHANCED_CRAFTING_TABLE,
+				new ItemStack[] {new ItemStack(Material.BOOKSHELF), null, new ItemStack(Material.BOOKSHELF), SlimefunItems.MAGIC_LUMP_3, SlimefunItems.MAGICAL_BOOK_COVER, SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.BOOKSHELF), null, new ItemStack(Material.BOOKSHELF)}, new CustomItem(new CustomItem(new MaterialData(Material.BOOKSHELF), ChatColor.LIGHT_PURPLE+"Lost Bookshelf", "", ChatColor.RESET+"Scrambled Parts of an", ChatColor.RESET+"ancient Library..."), 2))
 				.register();
 				
-				new SlimefunItem(category, new CustomItem(new MaterialData(Material.WORKBENCH), "§dLost Librarian's Desk", "", "§rBasically like a Lost Librarian"), "LOST_LIBRARIANS_DESK", RecipeType.ENHANCED_CRAFTING_TABLE,
+				new SlimefunItem(category, new CustomItem(new MaterialData(Material.WORKBENCH), ChatColor.LIGHT_PURPLE+"Lost Librarian's Desk", "", ChatColor.RESET+"Basically like a Lost Librarian"), "LOST_LIBRARIANS_DESK", RecipeType.ENHANCED_CRAFTING_TABLE,
 				new ItemStack[] {SlimefunItem.getItem("LOST_BOOKSHELF"), null, SlimefunItem.getItem("LOST_BOOKSHELF"), null, SlimefunItems.TALISMAN, null, SlimefunItem.getItem("LOST_BOOKSHELF"), null, SlimefunItem.getItem("LOST_BOOKSHELF")})
 				.register(new ItemInteractionHandler() {
 					
@@ -93,7 +96,6 @@ public class main extends JavaPlugin {
 				});
 			}
 			
-			final main plugin = this;
 			getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 				@Override
 				public void run() {
@@ -101,12 +103,12 @@ public class main extends JavaPlugin {
 						for (String item: Slimefun.listIDs()) {
 							if (!(SlimefunItem.getByName(item) instanceof SlimefunMachine)) MagicLoot.getConfig(ConfigType.ITEMS).setDefaultValue("Slimefun-Item." + item, true);
 						}
-						System.out.println("[MagicLoot] Slimefun has been found!");
-						System.out.println("[MagicLoot] I will now generate Slimefun Loot as well!");
+						main.instance.getLogger().info("Slimefun has been found!");
+						main.instance.getLogger().info("I will now generate Slimefun Loot as well!");
 					}
 					MagicLoot.loadSettings();
 					
-					new MLListener(plugin);
+					new MLListener();
 				}
 			}, 10);
 		}

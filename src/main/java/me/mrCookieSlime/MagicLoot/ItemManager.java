@@ -115,7 +115,7 @@ public class ItemManager {
 				im.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7&kMEH WANNA BE EXAMINED"));
 				List<String> lore = new ArrayList<String>();
 				lore.add("");
-				lore.add("§8Tier: §b§d§e§cUnknown");
+				lore.add(ChatColor.DARK_GRAY+"Tier: "+ChatColor.AQUA.toString()+ChatColor.LIGHT_PURPLE+ChatColor.YELLOW+ChatColor.RED+"Unknown");
 				im.setLore(lore);
 				item.setItemMeta(im);
 				if (item.getType().getMaxDurability() > 0) item.setDurability((short) (CSCoreLib.randomizer().nextInt(item.getType().getMaxDurability() / 4) * 3));
@@ -156,7 +156,7 @@ public class ItemManager {
 		}
 
 		lore.add("");
-		lore.add("§8Tier: §b§d§e" + tier.getTag());
+		lore.add(ChatColor.DARK_GRAY+"Tier: "+ChatColor.AQUA.toString()+ChatColor.LIGHT_PURPLE+ChatColor.YELLOW + tier.getTag());
 		im.setLore(lore);
 		if (im instanceof LeatherArmorMeta) ((LeatherArmorMeta) im).setColor(Color.fromRGB(CSCoreLib.randomizer().nextInt(255), CSCoreLib.randomizer().nextInt(255), CSCoreLib.randomizer().nextInt(255)));;
 		if (im instanceof EnchantmentStorageMeta) {
@@ -227,7 +227,7 @@ public class ItemManager {
 			entity.getEquipment().setItemInMainHandDropChance(0.7F);
 			
 			try {
-				entity.getEquipment().setHelmet(new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2JjYmIzZTRhMzhhYzJhMDVmNjk1NWNkMmM5ODk1YWQ5ZjI4NGM2ZTgyZTc1NWM5NGM1NDljNWJkYzg1MyJ9fX0="), "§4Santa's Head", "", "§rDid you just kill Santa?"));
+				entity.getEquipment().setHelmet(new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2JjYmIzZTRhMzhhYzJhMDVmNjk1NWNkMmM5ODk1YWQ5ZjI4NGM2ZTgyZTc1NWM5NGM1NDljNWJkYzg1MyJ9fX0="), ChatColor.DARK_RED+"Santa's Head", "", ChatColor.RESET+"Did you just kill Santa?"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

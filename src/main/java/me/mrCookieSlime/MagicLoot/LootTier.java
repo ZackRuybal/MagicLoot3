@@ -10,14 +10,14 @@ import org.bukkit.inventory.ItemStack;
 
 public enum LootTier {
 	
-	NONE("§4ERROR", 0, 0, 0),
-	UNKNOWN("§cUnknown", 0, 0, 0),
+	NONE(ChatColor.DARK_RED+"ERROR", 0, 0, 0),
+	UNKNOWN(ChatColor.RED+"Unknown", 0, 0, 0),
 	
-	COMMON("§aCommon", 0, 13, 5),
-	UNCOMMON("§5Uncommon", 1, 10, 2),
-	RARE("§9Rare", 2, 9, 11),
-	EPIC("§e§lEpic", 3, 4, 0),
-	LEGENDARY("§6§lLEGENDARY", 4, 1, 4);
+	COMMON(ChatColor.GREEN+"Common", 0, 13, 5),
+	UNCOMMON(ChatColor.DARK_PURPLE+"Uncommon", 1, 10, 2),
+	RARE(ChatColor.BLUE+"Rare", 2, 9, 11),
+	EPIC(ChatColor.YELLOW.toString()+ChatColor.BOLD+"Epic", 3, 4, 0),
+	LEGENDARY(ChatColor.GOLD.toString()+ChatColor.BOLD+"LEGENDARY", 4, 1, 4);
 	
 	private String tag;
 	private int level;
@@ -98,7 +98,7 @@ public enum LootTier {
 		if (item == null) return LootTier.NONE;
 		if (!item.hasItemMeta() || !item.getItemMeta().hasLore()) return LootTier.NONE;
 		for (String line: item.getItemMeta().getLore()) {
-			if (line.contains("§b§d§e")) return LootTier.valueOf(ChatColor.stripColor(line.split("§b§d§e")[1]).toUpperCase());
+			if (line.contains(ChatColor.AQUA.toString()+ChatColor.LIGHT_PURPLE+ChatColor.YELLOW)) return LootTier.valueOf(ChatColor.stripColor(line.split(ChatColor.AQUA.toString()+ChatColor.LIGHT_PURPLE+ChatColor.YELLOW)[1]).toUpperCase());
 		}
 		return LootTier.NONE;
 	}

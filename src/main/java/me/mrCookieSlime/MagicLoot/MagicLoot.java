@@ -1,10 +1,6 @@
 package me.mrCookieSlime.MagicLoot;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,18 +102,20 @@ public class MagicLoot {
 		}
 		
 		if (!new File("plugins/MagicLoot/schematics").exists()) {
-			new File("plugins/MagicLoot/schematics").mkdir();
-			loadRuin("GasStation");
-			loadRuin("House");
-			loadRuin("Outpost");
-			loadRuin("Tent");
-			loadRuin("Shop");
-			loadRuin("Farm");
-			loadRuin("Railstation");
+			if (main.instance.getResource("/schematics") != null){
+				main.instance.saveResource("/schematics", true);
+			}else{
+				main.instance.getLogger().warning("Error saving schematics, they are not present in the jar!");
+			}
 		}
 
-		if (!new File("plugins/MagicLoot/buildings").exists()) new File("plugins/MagicLoot/buildings").mkdir();
-		loadBuilding("Lost_Library");
+		if (!new File("plugins/MagicLoot/buildings").exists()){
+			if (main.instance.getResource("/buildings") != null){
+				main.instance.saveResource("/buildings", true);
+			}else{
+				main.instance.getLogger().warning("Error saving buildings, they are not present in the jar!");
+			}
+		}
 		
 		for (String mob: main.cfg.getStringList("spawners")) {
 			mobs.add(EntityType.valueOf(mob));
@@ -125,32 +123,6 @@ public class MagicLoot {
 		
 		for (ConfigType type: ConfigType.values()) {
 			getConfig(type).save();
-		}
-	}
-
-	private static void loadBuilding(String name) {
-		String dataname = "buildings/" + name + ".schematic";
-		InputStream stream = MagicLoot.class.getResourceAsStream(dataname);
-		if(stream != null){
-			OutputStream out = null;
-			int read;
-			byte[] buffer = new byte[4096];
-			try {
-				out = new FileOutputStream(new File("plugins/MagicLoot/"+dataname));
-				while ((read = stream.read(buffer)) > 0) {
-					out.write(buffer, 0, read);
-				}
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			} finally {
-				try {
-					stream.close();
-					out.close();
-				} catch (IOException e) {
-				}
-			}
-		}else{
-			throw new NullPointerException("Jar integrity compromised, did not find \""+dataname+"\" in the jar.");
 		}
 	}
 
@@ -297,32 +269,6 @@ public class MagicLoot {
 			if (main.cfg.contains("enable." + type.toString())) {
 				if (main.cfg.getBoolean("enable." + type.toString())) ItemManager.types.add(type);
 			}
-		}
-	}
-	
-	public static void loadRuin(String name) {
-		String dataname = "schematics/" + name + ".schematic";
-		InputStream stream = MagicLoot.class.getResourceAsStream(dataname);
-		if(stream != null){
-			OutputStream out = null;
-			int read;
-			byte[] buffer = new byte[4096];
-			try {
-				out = new FileOutputStream(new File("plugins/MagicLoot/"+dataname));
-				while ((read = stream.read(buffer)) > 0) {
-					out.write(buffer, 0, read);
-				}
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			} finally {
-				try {
-					stream.close();
-					out.close();
-				} catch (IOException e) {
-				}
-			}
-		}else{
-			throw new NullPointerException("Jar integrity compromised, did not find \""+dataname+"\" in the jar.");
 		}
 	}
 
