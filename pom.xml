@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.mrCookieSlime</groupId>
   <artifactId>MagicLoot3</artifactId>
-  <version>2.2.0</version>
+  <version>2.2.1</version>
   <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
@@ -20,19 +20,13 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.10.2-R0.1-SNAPSHOT</version>
+            <version>1.11.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
            <groupId>org.spigotmc</groupId>
            <artifactId>spigot-api</artifactId>
-           <version>1.10.2-R0.1-SNAPSHOT</version>
-           <scope>provided</scope>
-        </dependency>
-        <dependency>
-           <groupId>org.spigotmc</groupId>
-           <artifactId>spigot</artifactId>
-           <version>1.10.2-R0.1-SNAPSHOT</version>
+           <version>1.11.2-R0.1-SNAPSHOT</version>
            <scope>provided</scope>
         </dependency>
         <dependency>
@@ -54,7 +48,7 @@
            <artifactId>Slimefun</artifactId>
            <version>4.0.13</version>
            <scope>system</scope>
-           <systemPath>${project.basedir}/libs/Slimefun_v4.0.13.jar</systemPath>
+           <systemPath>${project.basedir}/libs/Slimefun_v4.1.1.jar</systemPath>
         </dependency>
     </dependencies>
 
