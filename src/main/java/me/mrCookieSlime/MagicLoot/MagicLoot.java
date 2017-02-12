@@ -1,6 +1,10 @@
 package me.mrCookieSlime.MagicLoot;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,19 +104,19 @@ public class MagicLoot {
 				getConfig(ConfigType.EFFECTS).setDefaultValue(StringUtils.format(e.getName()) + ".max-level", 10);
 			}
 		}
-		
-		if (!new File("plugins/MagicLoot/schematics").exists()) {
-			if (main.instance.getResource("/schematics") != null){
-				main.instance.saveResource("/schematics", true);
-			}else{
-				main.instance.getLogger().warning("Error saving schematics, they are not present in the jar!");
+		String basedir = main.instance.getDataFolder().getPath();
+		File schemdir = new File(basedir+"/schematics");
+		if (!schemdir.exists()) {
+			schemdir.mkdir();
+			String[] schematics = {"Farm","GasStation","House","Outpost","Railstation","Shop","Tent"};
+			for(String schem:schematics){
+				ExportResource("/schematics/"+schem+".schematic");
 			}
 		}
-
-		if (!new File("plugins/MagicLoot/buildings").exists()){
-			if (main.instance.getResource("/buildings") != null){
-				main.instance.saveResource("/buildings", true);
-			}else{
+		File builddir = new File(basedir+"/buildings");
+		if (!builddir.exists()){
+			builddir.mkdir();
+			if (ExportResource("/buildings/Lost_Library.schematic") == false){
 				main.instance.getLogger().warning("Error saving buildings, they are not present in the jar!");
 			}
 		}
@@ -124,6 +128,33 @@ public class MagicLoot {
 		for (ConfigType type: ConfigType.values()) {
 			getConfig(type).save();
 		}
+	}
+	
+	static public boolean ExportResource(String resourceName) {
+		InputStream stream = null;
+		OutputStream resStreamOut = null;
+		try {
+			stream = MagicLoot.class.getResourceAsStream(resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
+			if(stream == null) {
+				throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
+			}
+
+			int readBytes;
+			byte[] buffer = new byte[4096];
+			resStreamOut = new FileOutputStream(main.instance.getDataFolder().getPath()+"/"+resourceName);
+			while ((readBytes = stream.read(buffer)) > 0) {
+				resStreamOut.write(buffer, 0, readBytes);
+			}
+		} catch (Exception ex) {
+			return false;
+		} finally {
+			try {
+				resStreamOut.close();
+			}catch(IOException ex){
+
+			}
+		}
+		return true;
 	}
 
 	private static void loadNames() {

@@ -20,21 +20,27 @@ public class RuinBuilder {
 	
 	public static void loadRuins() throws IOException {
 		String basedir = main.instance.getDataFolder().getPath();
-		for (File file: new File(basedir+"/schematics").listFiles()) {
-			if (file.getName().endsWith(".schematic")) {
-				schematics.add(Schematic.loadSchematic(file));
-				Config cfg = new Config(basedir+"/ruin_settings/" + file.getName().replace(".schematic", ".yml"));
-				cfg.setDefaultValue("y-offset", 0);
-				cfg.setDefaultValue("underwater", false);
-				cfg.save();
-				configs.put(file.getName().replace(".schematic", ""), cfg);
+		File schemdir = new File(basedir+"/schematics");
+		if(schemdir.exists()){
+			for (File file: schemdir.listFiles()) {
+				if (file.getName().endsWith(".schematic")) {
+					schematics.add(Schematic.loadSchematic(file));
+					Config cfg = new Config(basedir+"/ruin_settings/" + file.getName().replace(".schematic", ".yml"));
+					cfg.setDefaultValue("y-offset", 0);
+					cfg.setDefaultValue("underwater", false);
+					cfg.save();
+					configs.put(file.getName().replace(".schematic", ""), cfg);
+				}
+			}
+		}
+		File builddir = new File(basedir+"/buildings");
+		if(builddir.exists()){
+			for (File file: builddir.listFiles()) {
+				if (file.getName().endsWith(".schematic")) buildings.add(Schematic.loadSchematic(file));
 			}
 		}
 		if(schematics.size() <= 0){
 			main.instance.getLogger().warning("You do not have schematics loaded into the schematics folder!");
-		}
-		for (File file: new File(basedir+"/buildings").listFiles()) {
-			if (file.getName().endsWith(".schematic")) buildings.add(Schematic.loadSchematic(file));
 		}
 		if(buildings.size() <= 0){
 			main.instance.getLogger().warning("You do not have schematics loaded into the buildings folder!");
