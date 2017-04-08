@@ -84,7 +84,7 @@ public class MLListener implements Listener {
 		}
 	}
 	
-	@EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=true)
+	@EventHandler(ignoreCancelled=true)
 	public void onDamage(EntityDamageEvent e) {
 		
 		if (!(e.getEntity() instanceof LivingEntity)) return;
